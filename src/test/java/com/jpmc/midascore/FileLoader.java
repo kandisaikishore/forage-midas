@@ -1,7 +1,7 @@
 package com.jpmc.midascore;
 
 import org.springframework.stereotype.Component;
-import org.testcontainers.shaded.org.apache.commons.io.IOUtils;
+import java.nio.charset.StandardCharsets;
 
 import java.io.InputStream;
 
@@ -10,7 +10,8 @@ public class FileLoader {
     public String[] loadStrings(String path) {
         try {
             InputStream inputStream = this.getClass().getResourceAsStream(path);
-            String fileText = IOUtils.toString(inputStream, "UTF-8");
+            if (inputStream == null) return null;
+            String fileText = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
             return fileText.split(System.lineSeparator());
         } catch (Exception e) {
             return null;
