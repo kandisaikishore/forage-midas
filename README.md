@@ -1,5 +1,10 @@
 # Forage Midas
 
+## Live Demo / Deployment URL
+
+**Deployment URL:** Not verified yet. Add the confirmed public application URL here after checking the live service. The GitHub repository link is not a deployment URL.
+
+
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/saikishore2410/forage-midas) [![Issues](https://img.shields.io/github/issues/saikishore2410/forage-midas)](https://github.com/saikishore2410/forage-midas/issues) [![Last Commit](https://img.shields.io/github/last-commit/saikishore2410/forage-midas)](https://github.com/saikishore2410/forage-midas/commits/flow)
 
 > This repository contains a Forage Midas project or exercise. Please consult the existing source, project brief, and branch history for the authoritative goal, requirements, and implementation scope.
