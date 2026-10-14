@@ -1,0 +1,81 @@
+name: Repository Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 2 * * *" # Daily at 07:47 IST
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repository-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Detect stack and run available checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run Java tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -f pom.xml ]]; then
+            mvn --batch-mode --no-transfer-progress test
+          elif [[ -x ./gradlew ]]; then
+            ./gradlew test
+          elif [[ -f build.gradle || -f build.gradle.kts ]]; then
+            echo "::notice::Gradle build file found but no Gradle wrapper; install/use a wrapper for reproducible builds."
+            if command -v gradle >/dev/null 2>&1; then gradle test
+            else echo "::warning::Gradle tests skipped because no wrapper or system Gradle is available."; fi
+          else
+            echo "No root Maven/Gradle project detected; skipping Java tests."
+          fi
+
+      - name: Run Python tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -f requirements.txt ]]; then python -m pip install --upgrade pip && pip install -r requirements.txt; fi
+          if [[ -f pyproject.toml || -f setup.py || -f pytest.ini || -d tests ]] || find . -maxdepth 2 -name 'test_*.py' -print -quit | grep -q .; then
+            python -m pip install pytest
+            if [[ -d tests ]] || find . -maxdepth 2 -name 'test_*.py' -print -quit | grep -q .; then pytest -q; else echo "::notice::Python project detected, but no tests directory or test_*.py files were found."; fi
+          else
+            echo "No Python test suite detected; skipping pytest."
+          fi
+
+      - name: Run Node.js checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -f package.json ]]; then
+            if [[ -f package-lock.json ]]; then npm ci; else npm install; fi
+            npm test --if-present
+            npm run build --if-present
+          else
+            echo "No root package.json detected; skipping Node.js checks."
+          fi
