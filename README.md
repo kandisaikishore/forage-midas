@@ -1,14 +1,13 @@
 # Forage Midas — Midas Core
 
-[![Java](https://img.shields.io/badge/Java-17-orange?logo=openjdk)](https://www.java.com/) [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.5-6DB33F?logo=springboot)](https://spring.io/projects/spring-boot) [![Maven](https://img.shields.io/badge/Build-Maven-C71A36?logo=apachemaven)](https://maven.apache.org/) [![Repository](https://img.shields.io/badge/GitHub-Source-181717?logo=github)](https://github.com/kandisaikishore/forage-midas)
+[![Java 17](https://img.shields.io/badge/Java-17-orange?logo=openjdk)](https://www.java.com/) [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.5-6DB33F?logo=springboot)](https://spring.io/projects/spring-boot) [![Maven](https://img.shields.io/badge/Build-Maven-C71A36?logo=apachemaven)](https://maven.apache.org/) [![Source](https://img.shields.io/badge/Source-GitHub-181717?logo=github)](https://github.com/kandisaikishore/forage-midas)
 
-A Java 17 and Spring Boot project for the Forage Midas Core exercise. The repository combines a Spring web application with JPA-based data access and Kafka integration to support transaction-oriented exercise workflows.
+A Java 17 and Spring Boot implementation workspace for the Forage Midas Core exercise. The project combines Spring web components, JPA-oriented data access, and Kafka integration for transaction-processing learning workflows.
 
 ## Technology stack
 
 - Java 17
-- Spring Boot 3.2.5
-- Spring Web
+- Spring Boot 3.2.5 and Spring Web
 - Spring Data JPA
 - Apache Kafka / Spring Kafka
 - H2 in-memory database for local/test configuration
@@ -17,26 +16,19 @@ A Java 17 and Spring Boot project for the Forage Midas Core exercise. The reposi
 ## Project structure
 
 - `src/main/java/com/jpmc/midascore/` — application source
-- `component/` — application integration components
+- `component/` — integration components
 - `entity/` — domain entities
-- `foundation/` — core domain objects such as balances and transactions
+- `foundation/` — core transaction and balance objects
 - `repository/` — data-access interfaces
-- `src/test/java/` — exercise and integration tests
-- `application.yml` — local server, datasource, and Kafka configuration
-- `pom.xml` — dependencies and build configuration
+- `src/test/java/` — tests
+- `application.yml` — server, datasource, and Kafka configuration
+- `pom.xml` — dependencies and build
 
 ## Prerequisites
 
-Install:
-
-- JDK 17
-- Git
-- Maven (or use the included Maven Wrapper)
-- Kafka only when running workflows that require a Kafka broker; review the test configuration and project setup first
+Install JDK 17 and Git. Use the included Maven Wrapper. Kafka may be needed for workflows requiring a broker; consult the test setup before starting external services.
 
 ## Run locally
-
-Clone the repository and switch to the exercise branch:
 
 ```bash
 git clone https://github.com/kandisaikishore/forage-midas.git
@@ -44,50 +36,44 @@ cd forage-midas
 git switch flow
 ```
 
-Build and run the test suite with the Maven Wrapper:
+Run tests:
 
 **macOS/Linux**
 ```bash
 ./mvnw test
 ```
 
-**Windows**
+**Windows PowerShell**
 ```powershell
 .\mvnw.cmd test
 ```
 
-To start the Spring Boot application:
+Start the application:
 
 **macOS/Linux**
 ```bash
 ./mvnw spring-boot:run
 ```
 
-**Windows**
+**Windows PowerShell**
 ```powershell
 .\mvnw.cmd spring-boot:run
 ```
 
-The checked-in configuration sets the application port to `33400` and uses an in-memory H2 datasource. Kafka-dependent operations may require a broker or the embedded broker used by the tests.
-
-## Configuration notes
-
-- The local H2 datasource is configured in `application.yml`; its data is transient.
-- Kafka's bootstrap address and the configured topic are also specified in that file.
-- Use environment variables or a local untracked configuration for secrets if you add external services. Never commit passwords or tokens.
+The checked-in configuration uses port `33400` and an in-memory H2 datasource. Kafka-dependent workflows may require a broker or the embedded broker configured for tests.
 
 ## Quality checks
 
-Run `./mvnw test` (or `mvnw.cmd test` on Windows) before proposing a change. Add tests for transaction processing, persistence mapping, message production/consumption, and invalid or boundary inputs when modifying those paths.
+Run the test suite before making changes. Add coverage for transaction-processing rules, entity/repository behaviour, message production/consumption, invalid inputs, and boundary conditions.
 
 ## Scope and attribution
 
-This repository is associated with a Forage exercise. Follow the exercise's terms and respect any restrictions on proprietary materials or redistribution. Do not assume the project is a production-ready financial system.
+This repository is associated with a Forage exercise. Respect the exercise terms and any restrictions on proprietary material or redistribution. It should not be treated as a production financial system.
 
 ## Contributing
 
-Make small, reviewable changes. Include the problem being addressed, implementation notes, and the tests run.
+Keep changes focused and reviewable. Describe the behaviour changed and include tests run.
 
 ## License
 
-Follow the applicable Forage exercise terms; no separate open-source license is assumed by this README.
+Follow the applicable Forage exercise terms; this README does not assume a separate open-source license.
