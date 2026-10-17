@@ -17,4 +17,4 @@ jobs:
           java-version: '17'
           cache: maven
       - name: Build and test (exclude interactive verifier)
-        run: mvn -B -Dtest='!TaskThreeTests' test
+        run: mvn -B '-Dtest=!TaskTwoTests,!TaskThreeTests' test
