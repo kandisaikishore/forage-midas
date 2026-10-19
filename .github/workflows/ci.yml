@@ -1,10 +1,17 @@
 name: CI
+
 on:
   push:
   pull_request:
   workflow_dispatch:
+
 permissions:
   contents: read
+
+concurrency:
+  group: forage-midas-ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -16,5 +23,5 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - name: Build and test (exclude interactive verifier)
-        run: mvn -B '-Dtest=!TaskTwoTests,!TaskThreeTests' test
+      - name: Verify project and tests
+        run: mvn --batch-mode --no-transfer-progress -Dtest='!TaskTwoTests,!TaskThreeTests' verify
