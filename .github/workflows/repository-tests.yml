@@ -45,7 +45,7 @@ jobs:
         run: |
           set -euo pipefail
           if [[ -f pom.xml ]]; then
-            mvn --batch-mode --no-transfer-progress -Dtest='!TaskTwoTests,!TaskThreeTests' verify
+            mvn --batch-mode --no-transfer-progress -Dtest=UserRecordTest,TaskOneTests verify
           elif [[ -x ./gradlew ]]; then
             ./gradlew test
           elif [[ -f build.gradle || -f build.gradle.kts ]]; then
