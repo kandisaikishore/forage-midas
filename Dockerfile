@@ -7,7 +7,7 @@ COPY mvnw ./
 RUN chmod +x mvnw
 COPY application.yml ./
 COPY src/ src/
-RUN mvn --batch-mode --no-transfer-progress -Dtest=UserRecordTest,TaskOneTests verify
+RUN mvn --batch-mode --no-transfer-progress -Dtest=UserRecordTest,HealthControllerTest,TaskOneTests verify
 
 # Small runtime image; Render supplies PORT at runtime.
 FROM eclipse-temurin:17-jre-jammy
