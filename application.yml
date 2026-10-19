@@ -1,5 +1,5 @@
 server:
-  port: 33400
+  port: ${PORT:33400}
 
 spring:
   datasource:
