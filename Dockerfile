@@ -14,6 +14,7 @@ FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 RUN useradd --system --uid 10001 appuser
 COPY --from=build /workspace/target/midas-core-1.0.0.jar /app/app.jar
+COPY --from=build /workspace/application.yml /app/application.yml
 USER appuser
 EXPOSE 10000
 ENV PORT=10000
