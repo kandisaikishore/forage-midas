@@ -24,4 +24,4 @@ jobs:
           java-version: '17'
           cache: maven
       - name: Verify project and tests
-        run: mvn --batch-mode --no-transfer-progress -Dtest='!TaskTwoTests,!TaskThreeTests' verify
+        run: mvn --batch-mode --no-transfer-progress -Dtest=UserRecordTest,TaskOneTests verify
