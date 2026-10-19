@@ -61,7 +61,10 @@ jobs:
           while IFS= read -r file; do
             dir="$(dirname "$file")"
             echo "Maven: $dir"
-            if [[ -x "$dir/mvnw" ]]; then
+            if [[ "$dir" == "." ]]; then
+              # Forage verifier tests include intentional interactive/infinite-loop tasks.
+              (cd "$dir" && mvn --batch-mode --no-transfer-progress -Dtest=UserRecordTest,TaskOneTests verify)
+            elif [[ -x "$dir/mvnw" ]]; then
               (cd "$dir" && ./mvnw --batch-mode --no-transfer-progress clean verify)
             else
               (cd "$dir" && mvn --batch-mode --no-transfer-progress clean verify)
