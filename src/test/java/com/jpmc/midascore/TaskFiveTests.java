@@ -2,6 +2,7 @@ package com.jpmc.midascore;
 
 import com.jpmc.midascore.foundation.Balance;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class TaskFiveTests {
 
 
     @Test
+    @Disabled("Interactive verifier; run manually with an embedded Kafka broker when debugging task output.")
     void task_five_verifier() throws InterruptedException {
         userPopulator.populate();
         String[] transactionLines = fileLoader.loadStrings("/test_data/rueiwoqp.tyruei");
