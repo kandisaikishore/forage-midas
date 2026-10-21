@@ -24,4 +24,4 @@ jobs:
           java-version: '17'
           cache: maven
       - name: Verify project and smoke/regression tests
-        run: mvn --batch-mode --no-transfer-progress -Dtest=UserRecordTest,HealthControllerTest,TaskOneTests verify
+        run: mvn --batch-mode --no-transfer-progress verify
