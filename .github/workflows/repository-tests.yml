@@ -45,7 +45,7 @@ jobs:
         run: |
           set -euo pipefail
           if [[ -f pom.xml ]]; then
-            mvn --batch-mode --no-transfer-progress verify
+            ./mvnw --batch-mode --no-transfer-progress verify
           elif [[ -x ./gradlew ]]; then
             ./gradlew test
           elif [[ -f build.gradle || -f build.gradle.kts ]]; then
