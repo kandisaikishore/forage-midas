@@ -3,8 +3,6 @@ package com.jpmc.midascore;
 import com.jpmc.midascore.foundation.Transaction;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.SendResult;
-import java.util.concurrent.CompletableFuture;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -34,14 +32,7 @@ public class KafkaProducer {
             if (!Float.isFinite(amount) || amount <= 0) {
                 throw new IllegalArgumentException("Transaction amount must be a finite positive number");
             }
-            CompletableFuture<SendResult<String, Transaction>> sendResult =
-                    kafkaTemplate.send(topic, new Transaction(senderId, recipientId, amount));
-            sendResult.whenComplete((result, exception) -> {
-                if (exception != null) {
-                    org.slf4j.LoggerFactory.getLogger(KafkaProducer.class)
-                            .error("Failed to publish transaction to topic {}", topic, exception);
-                }
-            });
+            kafkaTemplate.send(topic, new Transaction(senderId, recipientId, amount));
         } catch (NumberFormatException exception) {
             throw new IllegalArgumentException("Transaction line contains an invalid numeric value", exception);
         }
