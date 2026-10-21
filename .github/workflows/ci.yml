@@ -25,4 +25,4 @@ jobs:
           java-version: '17'
           cache: maven
       - name: Verify project and run the complete test suite
-        run: mvn --batch-mode --no-transfer-progress verify
+        run: ./mvnw --batch-mode --no-transfer-progress verify
