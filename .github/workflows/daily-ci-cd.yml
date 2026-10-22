@@ -15,7 +15,7 @@ permissions:
 
 concurrency:
   group: daily-ci-${{ github.repository }}-${{ github.event.repository.default_branch }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   test-and-track:
@@ -87,7 +87,7 @@ jobs:
             count=$((count + 1))
           done < <(find . -type d \( -name .git -o -name node_modules -o -name build -o -name .gradle \) -prune -o -type f \( -name build.gradle -o -name build.gradle.kts \) -print)
 
-          # Node.js projects: install using the lockfile and run declared test/lint/build scripts.
+          # Node.js projects
           while IFS= read -r file; do
             dir="$(dirname "$file")"
             echo "Node.js: $dir"
@@ -158,7 +158,7 @@ jobs:
             count=$((count + 1))
           done < <(find . -type d \( -name .git -o -name node_modules -o -name .venv -o -name __pycache__ \) -prune -o -type f \( -name pyproject.toml -o -name requirements.txt \) -print)
 
-          # Plain Java repositories without Maven/Gradle; include nested source paths and spaces.
+          # Plain Java repositories without Maven/Gradle
           if [[ "$count" == 0 ]] && find . -type d \( -name .git -o -name node_modules -o -name target \) -prune -o -type f -name '*.java' -print -quit | grep -q .; then
             mapfile -d '' java_files < <(find . -type d \( -name .git -o -name node_modules -o -name target \) -prune -o -type f -name '*.java' -print0)
             mkdir -p /tmp/java-classes
