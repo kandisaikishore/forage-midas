@@ -14,7 +14,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: daily-ci-${{ github.repository }}-${{ github.event.repository.default_branch }}
+  group: daily-ci-v2-${{ github.repository }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
