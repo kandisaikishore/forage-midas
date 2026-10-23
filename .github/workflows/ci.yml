@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: forage-midas-ci-${{ github.ref }}
+  group: forage-midas-ci-v2-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
